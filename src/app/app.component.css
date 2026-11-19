@@ -130,15 +130,22 @@
 
 @media (max-width: 860px) {
   .site-header {
+    flex-wrap: wrap;
+    gap: 1rem;
     padding: 0 1.5rem;
   }
 
   .primary-nav {
+    flex: 1;
     gap: 0.8rem;
   }
 
   .primary-nav a {
     font-size: 0.66rem;
+  }
+
+  .source-link {
+    margin-left: auto;
   }
 
   .site-footer {
@@ -184,6 +191,7 @@
   .primary-nav {
     width: 100%;
     order: 2;
+    flex: auto;
     justify-content: space-between;
     gap: 0.5rem;
   }

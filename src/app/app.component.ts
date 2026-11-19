@@ -13,7 +13,8 @@ import { portfolioCategories } from './portfolio-categories';
         <span class="wordmark-mark" aria-hidden="true">MC</span>
         <span class="wordmark-name">Mateusz Czech<span>fotografia & dźwięk</span></span>
       </a>
-      <nav class="primary-nav" aria-label="Kategorie portfolio">
+      <nav class="primary-nav" aria-label="Główna nawigacja">
+        <a routerLink="/" fragment="o-mnie">O mnie</a>
         @for (category of categories; track category.slug) {
           <a [routerLink]="['/portfolio', category.slug]">{{ category.name }}</a>
         }

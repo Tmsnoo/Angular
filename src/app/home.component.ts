@@ -31,6 +31,30 @@ import { portfolioCategories } from './portfolio-categories';
       <span class="hero-coordinate" aria-hidden="true">MATEUSZ CZECH / PL</span>
     </section>
 
+    <section class="about" id="o-mnie" aria-labelledby="about-title">
+      <div class="about-image">
+        <img
+          src="https://cdn.myportfolio.com/1ae1782f-bf75-40a2-a983-b0b5ac077fec/f048183b-3630-4a39-89df-1adb51b02293_rw_1200.jpg?h=e25033b36573ae17116e61b083cae2a7"
+          alt="Portret Mateusza Czecha"
+          loading="lazy"
+          decoding="async">
+        <span aria-hidden="true">MATEUSZ CZECH / FOTOGRAF</span>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow"><span></span> O mnie / 01</p>
+        <h2 id="about-title">Liczy się cała<br><em>opowieść.</em></h2>
+        <blockquote>
+          <p>To, co naprawdę oddziela fotografa od doświadczonego fotografa, to powtarzalność.</p>
+          <p>Nie chodzi o to, by ustrzelić pojedyncze „zdjęcie życia”, kiedy gwiazdy są w idealnym układzie. Chodzi o to, by dostarczyć całą, spójną opowieść pełną potężnych emocji z każdym złapaniem za aparat.</p>
+          <p>Ostatecznie moim celem jest kreowanie pełnych życia, energetycznych i autentycznych kadrów, które są tak wyjątkowe, jak ludzie na nich uwiecznieni.</p>
+        </blockquote>
+        <div class="about-contact" aria-label="Kontakt">
+          <a href="tel:+48501455889">+48 501 455 889</a>
+          <a href="mailto:kontakt@mateuszczech.com">kontakt&#64;mateuszczech.com</a>
+        </div>
+      </div>
+    </section>
+
     <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
       <div class="section-heading">
         <div>

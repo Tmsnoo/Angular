@@ -1,12 +1,14 @@
 :root {
   color-scheme: dark;
-  --ink: #171715;
-  --paper: #f0ede7;
-  --paper-muted: #c1bdb5;
-  --muted: #89867f;
-  --accent: #d3a673;
-  --line: rgba(240, 237, 231, 0.12);
-  --display: "Manrope", sans-serif;
+  --ink: #1d120e;
+  --soil: #462e24;
+  --paper: #f3e5c2;
+  --paper-muted: #ddd0b6;
+  --muted: #a4bcd4;
+  --accent: #a4bcd4;
+  --accent-red: #490b0c;
+  --line: rgba(243, 229, 194, 0.16);
+  --display: "Manrope", "DM Sans", sans-serif;
   --body: "DM Sans", sans-serif;
 }
 
@@ -45,6 +47,279 @@ button:focus-visible {
   color: var(--ink);
 }
 
+.folder-section h2 em,
+.experience-heading h2 em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.wedding-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem 1.25rem;
+}
+
+.wedding-card {
+  grid-column: span 5;
+  min-width: 0;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.wedding-card:nth-child(4n + 1),
+.wedding-card:nth-child(4n + 4) {
+  grid-column: span 7;
+}
+
+.wedding-image {
+  position: relative;
+  aspect-ratio: 1.3;
+  overflow: hidden;
+  background: var(--soil);
+}
+
+.wedding-image::after {
+  position: absolute;
+  inset: 30% 0 0;
+  background: linear-gradient(transparent, rgba(29, 18, 14, 0.78));
+  content: "";
+}
+
+.wedding-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82);
+  transition: filter 400ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.wedding-card:hover img,
+.wedding-card:focus-visible img {
+  filter: saturate(1);
+  transform: scale(1.035);
+}
+
+.wedding-title {
+  position: absolute;
+  z-index: 1;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  color: white;
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  opacity: 0;
+  transform: translateY(0.4rem);
+  transition: opacity 220ms ease, transform 300ms ease;
+}
+
+.wedding-arrow {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgba(243, 229, 194, 0.7);
+  border-radius: 50%;
+  color: white;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.wedding-card:hover .wedding-arrow,
+.wedding-card:focus-visible .wedding-arrow {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.wedding-card:hover .wedding-title,
+.wedding-card:focus-visible .wedding-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wedding-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.67rem;
+}
+
+.wedding-caption span:last-child {
+  color: var(--paper-muted);
+}
+
+.wedding-caption span span {
+  color: var(--accent);
+}
+
+.collaborators {
+  padding: 6rem 12vw;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(ellipse at 18% 72%, rgba(73, 11, 12, 0.24), transparent 36%);
+}
+
+.collaborators .section-heading h2 em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.collaborator-artwork {
+  display: block;
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(164, 188, 212, 0.2);
+  background: #000;
+}
+
+.collaborator-artwork img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.experience {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(3rem, 8vw, 8rem);
+  padding: 6rem 15vw;
+  border-bottom: 1px solid var(--line);
+  background: var(--soil);
+}
+
+.experience-heading {
+  max-width: 29rem;
+}
+
+.experience-heading h2 {
+  margin: 1.4rem 0 0;
+  font-size: clamp(3rem, 5vw, 4.7rem);
+  line-height: 0.98;
+}
+
+.experience-heading > p:last-child {
+  max-width: 25rem;
+  margin: 1.25rem 0 0;
+  color: var(--paper-muted);
+  font-size: 0.83rem;
+  line-height: 1.8;
+}
+
+.experience-list article {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.experience-list article > span {
+  padding-top: 0.15rem;
+  color: var(--accent);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+.experience-list h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.experience-list p {
+  margin: 0.4rem 0 0;
+  color: var(--paper-muted);
+  font-size: 0.76rem;
+  line-height: 1.7;
+}
+
+.about-image {
+  position: relative;
+}
+
+.about-bts {
+  position: absolute;
+  right: -9%;
+  bottom: 14%;
+  width: 60%;
+  padding: 0.45rem;
+  border: 1px solid rgba(164, 188, 212, 0.7);
+  background: var(--ink);
+}
+
+.about-bts img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.about-bts span {
+  display: block;
+  padding: 0.5rem 0.15rem 0.1rem;
+  color: var(--paper-muted);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .collaborators {
+    padding: 5rem 8vw;
+  }
+
+  .experience {
+    gap: 3rem;
+    padding: 5rem 8vw;
+  }
+}
+
+@media (max-width: 620px) {
+  .collaborators {
+    padding: 4.5rem 1.5rem;
+  }
+
+  .wedding-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .wedding-card,
+  .wedding-card:nth-child(4n + 1),
+  .wedding-card:nth-child(4n + 4) {
+    grid-column: auto;
+  }
+
+  .wedding-title {
+    opacity: 1;
+    transform: none;
+  }
+
+  .experience {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 4.5rem 1.5rem;
+  }
+
+  .about-bts {
+    right: -6%;
+    bottom: 10%;
+    width: 56%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -56,5 +331,10 @@ button:focus-visible {
     animation: none !important;
     scroll-behavior: auto !important;
     transition: none !important;
+  }
+
+  .wedding-card:hover .wedding-title,
+  .wedding-card:focus-visible .wedding-title {
+    transform: none;
   }
 }

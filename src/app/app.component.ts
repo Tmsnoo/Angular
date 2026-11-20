@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { portfolioCategories } from './portfolio-categories';
 
@@ -15,8 +16,9 @@ import { portfolioCategories } from './portfolio-categories';
       </a>
       <nav class="primary-nav" aria-label="Główna nawigacja">
         <a routerLink="/" fragment="o-mnie">O mnie</a>
+        <a class="wedding-nav-link" routerLink="/" fragment="sluby">Śluby</a>
         @for (category of categories; track category.slug) {
-          <a [routerLink]="['/portfolio', category.slug]">{{ category.name }}</a>
+          <a routerLink="/" [fragment]="'portfolio-' + category.slug">{{ category.name }}</a>
         }
       </nav>
       <a class="source-link" href="https://mateuszczech.com/portfolio" target="_blank" rel="noopener noreferrer">
@@ -31,6 +33,7 @@ import { portfolioCategories } from './portfolio-categories';
     <footer class="site-footer">
       <a class="footer-brand" routerLink="/">Mateusz Czech<span>Fotografia / dźwięk</span></a>
       <nav aria-label="Kategorie portfolio">
+        <a routerLink="/" fragment="sluby">Śluby</a>
         @for (category of categories; track category.slug) {
           <a [routerLink]="['/portfolio', category.slug]">{{ category.name }}</a>
         }
@@ -43,4 +46,8 @@ import { portfolioCategories } from './portfolio-categories';
 export class AppComponent {
   readonly categories = portfolioCategories;
   readonly currentYear = new Date().getFullYear();
+
+  constructor(viewportScroller: ViewportScroller) {
+    viewportScroller.setOffset(() => [0, document.querySelector('.site-header')?.getBoundingClientRect().height ?? 88]);
+  }
 }

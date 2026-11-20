@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { portfolioCategories } from './portfolio-categories';
+import { weddingStories } from './wedding-stories';
 
 @Component({
   standalone: true,
@@ -12,10 +13,10 @@ import { portfolioCategories } from './portfolio-categories';
     @if (category(); as currentCategory) {
       <section class="gallery-page">
         <div class="gallery-heading">
-          <a class="back-link" routerLink="/" fragment="portfolio">
+          <a class="back-link" routerLink="/" [fragment]="isWedding() ? 'sluby' : 'portfolio'">
             <span aria-hidden="true">←</span> Wszystkie kategorie
           </a>
-          <p class="eyebrow">{{ currentCategory.number }} / Portfolio</p>
+          <p class="eyebrow">{{ currentCategory.number }} / {{ isWedding() ? 'Ślub' : 'Portfolio' }}</p>
           <h1>{{ currentCategory.name }}<span>.</span></h1>
           <div class="gallery-meta">
             <p>
@@ -26,7 +27,7 @@ import { portfolioCategories } from './portfolio-categories';
               }
             </p>
             <a [href]="currentCategory.sourceUrl" target="_blank" rel="noopener noreferrer">
-              Oryginalna galeria <span aria-hidden="true">↗</span>
+              {{ isWedding() ? 'Oryginalny reportaż' : 'Oryginalna galeria' }} <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -68,12 +69,20 @@ import { portfolioCategories } from './portfolio-categories';
         }
 
         <nav class="gallery-pagination" aria-label="Przejdź do innej kategorii">
-          @for (categoryLink of categories; track categoryLink.slug) {
-            <a
-              [routerLink]="['/portfolio', categoryLink.slug]"
-              [class.is-current]="categoryLink.slug === currentCategory.slug">
-              <span>{{ categoryLink.number }}</span> {{ categoryLink.name }}
-            </a>
+          @if (isWedding()) {
+            @for (story of weddings; track story.slug) {
+              <a [routerLink]="['/sluby', story.slug]" [class.is-current]="story.slug === currentCategory.slug">
+                <span>{{ story.number }}</span> {{ story.name }}
+              </a>
+            }
+          } @else {
+            @for (categoryLink of categories; track categoryLink.slug) {
+              <a
+                [routerLink]="['/portfolio', categoryLink.slug]"
+                [class.is-current]="categoryLink.slug === currentCategory.slug">
+                <span>{{ categoryLink.number }}</span> {{ categoryLink.name }}
+              </a>
+            }
           }
         </nav>
       </section>
@@ -108,7 +117,9 @@ export class GalleryComponent {
   );
 
   readonly categories = portfolioCategories;
-  readonly category = computed(() => portfolioCategories.find(({ slug }) => slug === this.categorySlug()));
+  readonly weddings = weddingStories;
+  readonly category = computed(() => portfolioCategories.find(({ slug }) => slug === this.categorySlug()) ?? weddingStories.find(({ slug }) => slug === this.categorySlug()));
+  readonly isWedding = computed(() => weddingStories.some(({ slug }) => slug === this.categorySlug()));
   readonly safeVideoUrl = computed<SafeResourceUrl | null>(() => {
     const url = this.category()?.videoEmbedUrl;
     return url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;

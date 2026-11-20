@@ -26,9 +26,9 @@
   align-items: center;
   justify-content: space-between;
   min-height: 5.5rem;
-  padding: 0 6vw;
+  padding: 0 clamp(1.5rem, 6vw, 6rem);
   border-bottom: 1px solid var(--line);
-  background: rgba(23, 23, 21, 0.9);
+  background: rgba(29, 18, 14, 0.92);
   backdrop-filter: blur(14px);
 }
 
@@ -57,7 +57,7 @@
 .footer-brand {
   font-family: var(--display);
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.035em;
 }
 
@@ -75,7 +75,9 @@
 
 .primary-nav {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 2.4rem);
+  align-self: stretch;
+  align-items: stretch;
+  gap: 0.3rem;
 }
 
 .primary-nav a,
@@ -91,6 +93,63 @@
 .site-footer nav a:hover,
 .source-link:hover {
   color: var(--accent);
+}
+
+.primary-nav a {
+  display: flex;
+  align-items: center;
+  margin-top: 0.65rem;
+  padding: 0 0.8rem;
+  border: 1px solid rgba(243, 229, 194, 0.12);
+  border-bottom: 0;
+  border-radius: 0.6rem 0.6rem 0 0;
+  background: var(--soil);
+  color: var(--paper-muted);
+  white-space: nowrap;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.primary-nav .wedding-nav-link {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.primary-nav a:nth-child(3) {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.primary-nav a:nth-child(4) {
+  border-color: var(--accent-red);
+  background: var(--accent-red);
+  color: var(--paper);
+}
+
+.primary-nav .wedding-nav-link:hover,
+.primary-nav .wedding-nav-link:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.primary-nav a:nth-child(3):hover,
+.primary-nav a:nth-child(3):focus-visible {
+  border-color: var(--paper);
+  background: var(--paper);
+}
+
+.primary-nav a:nth-child(4):hover,
+.primary-nav a:nth-child(4):focus-visible {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--ink);
 }
 
 .source-link span {
@@ -138,6 +197,12 @@
   .primary-nav {
     flex: 1;
     gap: 0.8rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .primary-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .primary-nav a {
@@ -192,12 +257,15 @@
     width: 100%;
     order: 2;
     flex: auto;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.5rem;
+    padding-bottom: 0.1rem;
   }
 
   .primary-nav a {
-    font-size: clamp(0.58rem, 2.7vw, 0.68rem);
+    margin-top: 0.45rem;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.65rem;
   }
 
   .site-footer {

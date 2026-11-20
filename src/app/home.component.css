@@ -2,27 +2,6 @@
   display: block;
 }
 
-.hero {
-  position: relative;
-  display: grid;
-  min-height: min(760px, calc(100svh - 5.5rem));
-  grid-template-columns: 0.9fr 1.1fr;
-  align-items: center;
-  gap: 3vw;
-  overflow: hidden;
-  padding: 4rem 8vw 5rem 12vw;
-  background:
-    radial-gradient(ellipse at 74% 48%, rgba(211, 166, 115, 0.08), transparent 34%),
-    linear-gradient(110deg, #171715 8%, #1c1b19 57%, #20201d);
-}
-
-.hero-copy {
-  position: relative;
-  z-index: 1;
-  max-width: 32rem;
-  animation: rise-in 700ms both;
-}
-
 .eyebrow {
   display: flex;
   align-items: center;
@@ -46,128 +25,19 @@ h1,
 h2 {
   margin: 1.7rem 0 0;
   font-family: var(--display);
-  font-weight: 500;
-  letter-spacing: -0.075em;
+  font-weight: 800;
+  letter-spacing: -0.05em;
 }
 
 h1 {
-  font-size: clamp(5rem, 9.5vw, 9rem);
-  line-height: 0.88;
+  font-size: clamp(3.5rem, 6vw, 5.8rem);
+  line-height: 0.98;
 }
 
 h1 em {
   color: var(--accent);
-  font-weight: 400;
-}
-
-.hero-intro {
-  margin: 2rem 0 0;
-  color: var(--paper-muted);
-  font-size: 0.87rem;
-  line-height: 1.8;
-}
-
-.hero-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  color: var(--paper);
-  font-size: 0.76rem;
-  text-decoration: none;
-}
-
-.hero-link span {
-  color: var(--accent);
-  font-size: 1.15rem;
-  transition: transform 180ms ease;
-}
-
-.hero-link:hover span {
-  transform: translateY(4px);
-}
-
-.hero-visual {
-  position: relative;
-  display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  transform: rotate(2deg);
-  animation: settle-in 900ms both;
-}
-
-.hero-image {
-  position: relative;
-  display: block;
-  min-height: 12rem;
-  overflow: hidden;
-  background: #292825;
-  color: white;
-  text-decoration: none;
-}
-
-.hero-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 12rem;
-  object-fit: cover;
-  filter: saturate(0.83);
-  transition: filter 400ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.hero-image:hover img {
-  filter: saturate(1);
-  transform: scale(1.035);
-}
-
-.image-0,
-.image-2 {
-  aspect-ratio: 1.28;
-}
-
-.image-1,
-.image-3 {
-  aspect-ratio: 1.28;
-}
-
-.hero-image::after {
-  position: absolute;
-  inset: 45% 0 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.64));
-  content: "";
-}
-
-.hero-image > span {
-  position: absolute;
-  z-index: 1;
-  bottom: 1rem;
-  left: 1rem;
-  font-family: var(--display);
-  font-size: 0.86rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.visual-caption {
-  position: absolute;
-  right: 0;
-  bottom: -1.6rem;
-  color: var(--muted);
-  font-size: 0.59rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.hero-coordinate {
-  position: absolute;
-  right: 2.5vw;
-  bottom: 2rem;
-  color: var(--muted);
-  font-size: 0.59rem;
-  letter-spacing: 0.12em;
-  writing-mode: vertical-rl;
+  font-style: normal;
+  font-weight: 800;
 }
 
 .about {
@@ -178,8 +48,8 @@ h1 em {
   padding: 8rem 15vw;
   border-bottom: 1px solid var(--line);
   background:
-    radial-gradient(ellipse at 18% 55%, rgba(211, 166, 115, 0.055), transparent 35%),
-    #1a1917;
+    radial-gradient(ellipse at 18% 55%, rgba(73, 11, 12, 0.24), transparent 38%),
+    var(--ink);
   scroll-margin-top: 6rem;
 }
 
@@ -210,18 +80,13 @@ h1 em {
   max-width: 39rem;
 }
 
-.about-copy h2 {
+.about-copy h1 {
   margin: 1.4rem 0 0;
   font-family: var(--display);
-  font-size: clamp(3rem, 5.2vw, 5rem);
-  font-weight: 500;
-  letter-spacing: -0.07em;
+  font-size: clamp(3.25rem, 5.5vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
   line-height: 0.98;
-}
-
-.about-copy h2 em {
-  color: var(--accent);
-  font-weight: 400;
 }
 
 .about-copy blockquote {
@@ -239,7 +104,7 @@ h1 em {
   color: var(--paper);
   font-family: var(--display);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.65;
 }
 
@@ -255,12 +120,8 @@ h1 em {
 .about-contact a {
   color: var(--accent);
   font-size: 0.75rem;
-  text-decoration-color: rgba(211, 166, 115, 0.4);
+  text-decoration-color: rgba(164, 188, 212, 0.55);
   text-underline-offset: 0.3rem;
-}
-
-.portfolio {
-  padding: 7rem 12vw 8rem;
 }
 
 .section-heading {
@@ -288,183 +149,178 @@ h1 em {
   text-align: right;
 }
 
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3.5rem 1.5rem;
-}
-
-.category-card {
-  color: var(--paper);
-  text-decoration: none;
-}
-
-.card-image {
+.folder-section {
   position: relative;
-  aspect-ratio: 1.38;
+  isolation: isolate;
+  display: grid;
+  min-height: min(900px, calc(100svh - 5.5rem));
+  align-items: center;
+  margin-top: 3.5rem;
+  padding: 5rem 12vw;
   overflow: hidden;
-  background: #262522;
+  background: var(--ink);
+  scroll-margin-top: 6rem;
 }
 
-.card-image::after {
+.folder-background {
   position: absolute;
-  inset: 40% 0 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
-  content: "";
-  pointer-events: none;
+  z-index: -2;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.3rem;
+  overflow: hidden;
 }
 
-.card-image img {
+.folder-background img {
   display: block;
   width: 100%;
   height: 100%;
+  min-height: 100%;
   object-fit: cover;
-  filter: saturate(0.84);
-  transition: filter 400ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  filter: saturate(0.72);
 }
 
-.category-card:hover .card-image img {
-  filter: saturate(1);
-  transform: scale(1.04);
-}
-
-.card-index,
-.card-arrow {
+.folder-shade {
   position: absolute;
-  z-index: 1;
-  bottom: 1rem;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(29, 18, 14, 0.8), rgba(29, 18, 14, 0.54) 58%, rgba(29, 18, 14, 0.3)),
+    linear-gradient(0deg, rgba(29, 18, 14, 0.24), transparent 52%);
 }
 
-.card-index {
-  left: 1rem;
-  color: white;
-  font-size: 0.67rem;
-  letter-spacing: 0.08em;
+.folder-content {
+  position: relative;
+  width: 100%;
+  max-width: 76rem;
+  margin: 0 auto;
 }
 
-.card-arrow {
-  right: 1rem;
-  display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  color: white;
-  font-size: 1rem;
-  transition: color 180ms ease, background 180ms ease;
+.folder-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 11rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding: 0.9rem 1.3rem;
+  border-radius: 0.9rem 0.9rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.category-card:hover .card-arrow {
+.folder-tab span {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.folder-tab--wedding {
   background: var(--paper);
   color: var(--ink);
 }
 
-.card-label {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.7rem;
-  padding-top: 0.9rem;
+.folder-tab--portrait {
+  background: var(--muted);
+  color: var(--ink);
 }
 
-.card-label h3 {
-  margin: 0;
-  font-family: var(--display);
-  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+.folder-tab--scene {
+  background: var(--accent-red);
+  color: var(--paper);
 }
 
-.card-label > span {
-  color: var(--muted);
-  font-size: 0.65rem;
-  white-space: nowrap;
+.folder-tab--gastro {
+  background: var(--soil);
+  color: var(--paper);
 }
 
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(1.4rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.folder-tab--voice {
+  border: 1px solid rgba(243, 229, 194, 0.45);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-@keyframes settle-in {
-  from {
-    opacity: 0;
-    transform: translate(1rem, 1rem) rotate(4deg);
-  }
-  to {
-    opacity: 1;
-    transform: translate(0, 0) rotate(2deg);
-  }
+.folder-section h2 {
+  max-width: 65rem;
+  margin-top: 1rem;
+  font-size: clamp(3rem, 7vw, 6.7rem);
+  line-height: 0.96;
+}
+
+.folder-description {
+  max-width: 40rem;
+  margin: 1.2rem 0 0;
+  color: var(--paper-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.folder-cta,
+.folder-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+  padding: 0.85rem 1.3rem;
+  border: 1px solid rgba(243, 229, 194, 0.72);
+  border-radius: 999px;
+  color: var(--paper);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.folder-cta:hover,
+.folder-contact:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.folder-cta span,
+.folder-contact span {
+  color: var(--accent);
+}
+
+.folder-section--wedding .folder-content {
+  max-width: 88rem;
+}
+
+.folder-section--wedding .folder-description {
+  margin-top: 0.8rem;
+}
+
+.folder-section--wedding .wedding-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.folder-section--wedding .wedding-card,
+.folder-section--wedding .wedding-card:nth-child(4n + 1),
+.folder-section--wedding .wedding-card:nth-child(4n + 4) {
+  grid-column: auto;
 }
 
 @media (max-width: 900px) {
-  .hero {
-    min-height: 39rem;
-    padding: 4rem 8vw;
-  }
-
-  .hero-visual {
-    gap: 0.5rem;
-  }
-
-  .hero-image,
-  .hero-image img {
-    min-height: 9rem;
-  }
-
-  .portfolio {
-    padding: 6rem 8vw;
-  }
-
   .about {
     gap: 3rem;
     padding: 6rem 8vw;
   }
+
+  .folder-section {
+    min-height: 48rem;
+    padding: 5rem 8vw;
+  }
 }
 
 @media (max-width: 620px) {
-  .hero {
-    min-height: auto;
-    grid-template-columns: 1fr;
-    gap: 3.3rem;
-    padding: 4.5rem 1.5rem 4rem;
-  }
-
   h1 {
-    font-size: clamp(5rem, 21vw, 7rem);
-  }
-
-  .hero-visual {
-    width: 95%;
-    justify-self: center;
-    transform: rotate(1deg);
-  }
-
-  .hero-image,
-  .hero-image img {
-    min-height: 7rem;
-  }
-
-  .hero-image > span {
-    bottom: 0.65rem;
-    left: 0.65rem;
-    font-size: 0.73rem;
-  }
-
-  .hero-coordinate {
-    right: 0.9rem;
-    bottom: 1.5rem;
-  }
-
-  .portfolio {
-    padding: 5rem 1.5rem;
+    font-size: clamp(2.75rem, 10vw, 4.25rem);
   }
 
   .about {
@@ -479,30 +335,30 @@ h1 em {
 
   .about-copy {
     max-width: none;
+    order: -1;
   }
 
-  .about-copy h2 {
-    font-size: clamp(3.2rem, 14vw, 5rem);
+  .about-copy h1 {
+    font-size: clamp(2.75rem, 10vw, 4.25rem);
   }
 
-  .category-grid {
-    grid-template-columns: 1fr;
-    gap: 2.2rem;
+  .folder-section {
+    min-height: 0;
+    margin-top: 2.8rem;
+    padding: 3.5rem 1.5rem;
   }
 
-  .card-label h3 {
-    font-size: 1.35rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-copy,
-  .hero-visual {
-    animation: none;
+  .folder-tab {
+    min-width: 9.5rem;
+    margin-bottom: 2.5rem;
   }
 
-  .hero-image img,
-  .category-row {
-    transition: none;
+  .folder-section h2 {
+    font-size: clamp(2.4rem, 10vw, 4rem);
+  }
+
+  .folder-section--wedding .wedding-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 0.7rem;
   }
 }

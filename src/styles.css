@@ -193,8 +193,8 @@ button:focus-visible {
   align-items: center;
   gap: clamp(3rem, 8vw, 8rem);
   padding: 6rem 15vw;
-  border-bottom: 1px solid var(--line);
-  background: var(--soil);
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .experience-heading {
@@ -203,15 +203,20 @@ button:focus-visible {
 
 .experience-heading h2 {
   margin: 1.4rem 0 0;
-  font-size: clamp(3rem, 5vw, 4.7rem);
+  color: var(--accent-red);
+  font-size: clamp(3.5rem, 5.8vw, 5.5rem);
   line-height: 0.98;
+}
+
+.experience-heading h2 em {
+  color: var(--accent-red);
 }
 
 .experience-heading > p:last-child {
   max-width: 25rem;
   margin: 1.25rem 0 0;
-  color: var(--paper-muted);
-  font-size: 0.83rem;
+  color: var(--soil);
+  font-size: 0.95rem;
   line-height: 1.8;
 }
 
@@ -219,30 +224,31 @@ button:focus-visible {
   display: grid;
   grid-template-columns: 2.5rem 1fr;
   gap: 1.1rem;
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--line);
+  padding: 1.45rem 0;
+  border-top: 1px solid rgba(70, 46, 36, 0.22);
 }
 
 .experience-list article > span {
   padding-top: 0.15rem;
-  color: var(--accent);
-  font-size: 0.65rem;
+  color: var(--accent-red);
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
 }
 
 .experience-list h3 {
   margin: 0;
   font-family: var(--display);
-  font-size: 1.05rem;
-  font-weight: 500;
+  color: var(--ink);
+  font-size: 1.3rem;
+  font-weight: 800;
   letter-spacing: -0.035em;
 }
 
 .experience-list p {
-  margin: 0.4rem 0 0;
-  color: var(--paper-muted);
-  font-size: 0.76rem;
-  line-height: 1.7;
+  margin: 0.55rem 0 0;
+  color: var(--soil);
+  font-size: 0.9rem;
+  line-height: 1.75;
 }
 
 .about-image {
@@ -255,8 +261,8 @@ button:focus-visible {
   bottom: 14%;
   width: 60%;
   padding: 0.45rem;
-  border: 1px solid rgba(164, 188, 212, 0.7);
-  background: var(--ink);
+  border: 1px solid rgba(73, 11, 12, 0.45);
+  background: var(--paper);
 }
 
 .about-bts img {
@@ -269,7 +275,7 @@ button:focus-visible {
 .about-bts span {
   display: block;
   padding: 0.5rem 0.15rem 0.1rem;
-  color: var(--paper-muted);
+  color: var(--soil);
   font-size: 0.55rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -311,6 +317,14 @@ button:focus-visible {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 4.5rem 1.5rem;
+  }
+
+  .experience-heading h2 {
+    font-size: clamp(3.2rem, 10vw, 4.2rem);
+  }
+
+  .experience-list h3 {
+    font-size: 1.2rem;
   }
 
   .about-bts {

@@ -18,6 +18,10 @@ interface FolderSection {
   imports: [RouterLink],
   template: `
     <section class="about" id="o-mnie" aria-labelledby="about-title">
+      <div class="about-heading">
+        <p class="eyebrow"><span></span> Fotografia / reportaż / dźwięk</p>
+        <h1 id="about-title"><span>O</span><span>MNIE</span></h1>
+      </div>
       <div class="about-image">
         <img
           src="https://cdn.myportfolio.com/1ae1782f-bf75-40a2-a983-b0b5ac077fec/f048183b-3630-4a39-89df-1adb51b02293_rw_1200.jpg?h=e25033b36573ae17116e61b083cae2a7"
@@ -35,10 +39,9 @@ interface FolderSection {
         <span aria-hidden="true">MATEUSZ CZECH / FOTOGRAF</span>
       </div>
       <div class="about-copy">
-        <p class="eyebrow"><span></span> O mnie</p>
-        <h1 id="about-title">Liczy się cała<br><em>opowieść.</em></h1>
+        <h2>Liczy się cała <em>opowieść.</em></h2>
         <blockquote>
-          <p>Najważniejsze kadry nie czekają na powtórkę — trzeba być gotowym, zanim wydarzą się naprawdę.</p>
+          <p class="about-intro">Najważniejsze kadry nie czekają na powtórkę — trzeba być gotowym, zanim wydarzą się naprawdę.</p>
           <p>Praca na planach filmowych, w studiu i przy dużych produkcjach nauczyła mnie uważności, tempa i spokoju tam, gdzie nie ma miejsca na dubel. To doświadczenie przenoszę do każdej sesji: słucham, obserwuję i reaguję na to, co dzieje się przed obiektywem.</p>
           <p>Tworzę pełne życia, energetyczne i autentyczne kadry — portrety, obrazy sceniczne i kulinarne historie, które zostają z odbiorcą na dłużej.</p>
         </blockquote>

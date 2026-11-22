@@ -17,8 +17,13 @@ import { portfolioCategories } from './portfolio-categories';
       <nav class="primary-nav" aria-label="Główna nawigacja">
         <a routerLink="/" fragment="o-mnie">O mnie</a>
         <a class="wedding-nav-link" routerLink="/" fragment="sluby">Śluby</a>
+        <a class="publications-nav-link" routerLink="/" fragment="publikacje">Publikacje</a>
         @for (category of categories; track category.slug) {
-          <a routerLink="/" [fragment]="'portfolio-' + category.slug">{{ category.name }}</a>
+          <a
+            [class.portfolio-nav-link--portrait]="category.slug === 'portret'"
+            [class.portfolio-nav-link--scene]="category.slug === 'scena'"
+            routerLink="/"
+            [fragment]="'portfolio-' + category.slug">{{ category.name }}</a>
         }
       </nav>
       <a class="source-link" href="https://mateuszczech.com/portfolio" target="_blank" rel="noopener noreferrer">
@@ -34,6 +39,7 @@ import { portfolioCategories } from './portfolio-categories';
       <a class="footer-brand" routerLink="/">Mateusz Czech<span>Fotografia / dźwięk</span></a>
       <nav aria-label="Kategorie portfolio">
         <a routerLink="/" fragment="sluby">Śluby</a>
+        <a routerLink="/" fragment="publikacje">Publikacje</a>
         @for (category of categories; track category.slug) {
           <a [routerLink]="['/portfolio', category.slug]">{{ category.name }}</a>
         }

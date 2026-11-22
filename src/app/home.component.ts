@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { portfolioCategories } from './portfolio-categories';
+import { publicationProjects } from './publication-projects';
 import { weddingStories } from './wedding-stories';
 
 interface FolderSection {
@@ -8,7 +9,7 @@ interface FolderSection {
   readonly slug: string;
   readonly name: string;
   readonly number: string;
-  readonly kind: 'wedding' | 'portfolio';
+  readonly kind: 'wedding' | 'portfolio' | 'publications';
   readonly backgroundImages: readonly string[];
 }
 
@@ -98,7 +99,8 @@ interface FolderSection {
             [class.folder-tab--portrait]="folder.slug === 'portret'"
             [class.folder-tab--scene]="folder.slug === 'scena'"
             [class.folder-tab--gastro]="folder.slug === 'gastro'"
-            [class.folder-tab--voice]="folder.slug === 'nagranialektorskie'">
+            [class.folder-tab--voice]="folder.slug === 'nagranialektorskie'"
+            [class.folder-tab--publications]="folder.kind === 'publications'">
             <span>{{ folder.number }}</span>{{ folder.name }}
           </div>
 
@@ -122,6 +124,13 @@ interface FolderSection {
               }
             </div>
             <a class="folder-contact" href="mailto:kontakt@mateuszczech.com">Porozmawiajmy o Waszym dniu <span aria-hidden="true">↗</span></a>
+          } @else if (folder.kind === 'publications') {
+            <p class="eyebrow"><span></span> Muzyka / scena / reportaż</p>
+            <h2 id="folder-title-publikacje">Publikacje.</h2>
+            <p class="folder-description">Kadry z koncertów, projektów muzycznych i historii, które trafiły do publikacji.</p>
+            <a class="folder-cta" routerLink="/publikacje">
+              Zobacz publikacje <span aria-hidden="true">↗</span>
+            </a>
           } @else {
             <p class="eyebrow"><span></span> Portfolio / {{ folder.number }}</p>
             <h2 [id]="'folder-title-' + folder.id">{{ folder.name }}</h2>
@@ -164,11 +173,19 @@ export class HomeComponent {
       kind: 'wedding',
       backgroundImages: weddingStories.map((story) => story.images[1] ?? story.coverImage)
     },
+    {
+      id: 'publikacje',
+      slug: 'publikacje',
+      name: 'Publikacje',
+      number: '02',
+      kind: 'publications',
+      backgroundImages: publicationProjects.slice(0, 4).map((project) => project.images[0])
+    },
     ...portfolioCategories.map((category, index): FolderSection => ({
       id: `portfolio-${category.slug}`,
       slug: category.slug,
       name: category.name,
-      number: String(index + 2).padStart(2, '0'),
+      number: String(index + 3).padStart(2, '0'),
       kind: 'portfolio',
       backgroundImages: category.images.length ? category.images.slice(0, 3) : [category.coverImage]
     }))

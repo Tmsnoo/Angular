@@ -242,6 +242,12 @@ h1 em {
   color: var(--paper);
 }
 
+.folder-tab--publications {
+  border: 1px solid rgba(221, 208, 182, 0.3);
+  background: var(--soil);
+  color: var(--paper);
+}
+
 .folder-section h2 {
   max-width: 65rem;
   margin-top: 1rem;

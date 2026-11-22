@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { portfolioCategories } from './portfolio-categories';
+import { publicationProjects } from './publication-projects';
 import { weddingStories } from './wedding-stories';
 
 @Component({
@@ -13,10 +14,15 @@ import { weddingStories } from './wedding-stories';
     @if (category(); as currentCategory) {
       <section class="gallery-page">
         <div class="gallery-heading">
-          <a class="back-link" routerLink="/" [fragment]="isWedding() ? 'sluby' : 'portfolio'">
+          <a
+            class="back-link"
+            [routerLink]="isPublication() ? ['/publikacje'] : ['/']"
+            [fragment]="isWedding() ? 'sluby' : isPublication() ? undefined : 'portfolio'">
             <span aria-hidden="true">←</span> Wszystkie kategorie
           </a>
-          <p class="eyebrow">{{ currentCategory.number }} / {{ isWedding() ? 'Ślub' : 'Portfolio' }}</p>
+          <p class="eyebrow">
+            {{ currentCategory.number }} / {{ isWedding() ? 'Ślub' : isPublication() ? 'Publikacja' : 'Portfolio' }}
+          </p>
           <h1>{{ currentCategory.name }}<span>.</span></h1>
           <div class="gallery-meta">
             <p>
@@ -75,6 +81,12 @@ import { weddingStories } from './wedding-stories';
                 <span>{{ story.number }}</span> {{ story.name }}
               </a>
             }
+          } @else if (isPublication()) {
+            @for (project of publications; track project.slug) {
+              <a [routerLink]="['/publikacje', project.slug]" [class.is-current]="project.slug === currentCategory.slug">
+                <span>{{ project.number }}</span> {{ project.name }}
+              </a>
+            }
           } @else {
             @for (categoryLink of categories; track categoryLink.slug) {
               <a
@@ -118,8 +130,14 @@ export class GalleryComponent {
 
   readonly categories = portfolioCategories;
   readonly weddings = weddingStories;
-  readonly category = computed(() => portfolioCategories.find(({ slug }) => slug === this.categorySlug()) ?? weddingStories.find(({ slug }) => slug === this.categorySlug()));
+  readonly publications = publicationProjects;
+  readonly category = computed(() => (
+    portfolioCategories.find(({ slug }) => slug === this.categorySlug())
+    ?? weddingStories.find(({ slug }) => slug === this.categorySlug())
+    ?? publicationProjects.find(({ slug }) => slug === this.categorySlug())
+  ));
   readonly isWedding = computed(() => weddingStories.some(({ slug }) => slug === this.categorySlug()));
+  readonly isPublication = computed(() => publicationProjects.some(({ slug }) => slug === this.categorySlug()));
   readonly safeVideoUrl = computed<SafeResourceUrl | null>(() => {
     const url = this.category()?.videoEmbedUrl;
     return url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;

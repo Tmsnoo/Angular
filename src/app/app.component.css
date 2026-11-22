@@ -121,13 +121,13 @@
   color: var(--ink);
 }
 
-.primary-nav a:nth-child(3) {
+.primary-nav .portfolio-nav-link--portrait {
   border-color: var(--accent);
   background: var(--accent);
   color: var(--ink);
 }
 
-.primary-nav a:nth-child(4) {
+.primary-nav .portfolio-nav-link--scene {
   border-color: var(--accent-red);
   background: var(--accent-red);
   color: var(--paper);
@@ -139,17 +139,23 @@
   background: var(--accent);
 }
 
-.primary-nav a:nth-child(3):hover,
-.primary-nav a:nth-child(3):focus-visible {
+.primary-nav .portfolio-nav-link--portrait:hover,
+.primary-nav .portfolio-nav-link--portrait:focus-visible {
   border-color: var(--paper);
   background: var(--paper);
 }
 
-.primary-nav a:nth-child(4):hover,
-.primary-nav a:nth-child(4):focus-visible {
+.primary-nav .portfolio-nav-link--scene:hover,
+.primary-nav .portfolio-nav-link--scene:focus-visible {
   border-color: var(--accent);
   background: var(--accent);
   color: var(--ink);
+}
+
+.primary-nav .publications-nav-link {
+  border-color: rgba(221, 208, 182, 0.3);
+  background: var(--soil);
+  color: var(--paper);
 }
 
 .source-link span {

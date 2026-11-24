@@ -21,6 +21,11 @@ html {
   scroll-padding-top: 6rem;
 }
 
+html.publications-scroll-snap {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: var(--site-header-height, 14rem);
+}
+
 body {
   min-width: 320px;
   margin: 0;
@@ -337,6 +342,10 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  html.publications-scroll-snap {
+    scroll-snap-type: y proximity;
   }
 
   *,

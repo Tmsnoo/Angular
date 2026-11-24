@@ -7,6 +7,168 @@
   padding-bottom: 4rem;
 }
 
+.gallery-page.publication-gallery-page {
+  min-height: 0;
+  padding-bottom: 0;
+}
+
+.publication-showcase {
+  display: grid;
+  min-height: calc(100svh - var(--site-header-height, 14rem));
+  grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.65fr);
+  background: #fff;
+}
+
+.publication-stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 28rem;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  background: #18120f;
+  cursor: none;
+}
+
+.publication-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100svh - var(--site-header-height, 14rem));
+  object-fit: contain;
+  animation: publication-slide-in 480ms ease both;
+}
+
+.publication-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  background: #fff;
+  color: #1d120e;
+}
+
+.publication-back {
+  align-self: flex-start;
+  color: #4a3b32;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.publication-back span {
+  margin-right: 0.5rem;
+  color: var(--accent-red);
+}
+
+.publication-info-bottom {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.publication-info .eyebrow {
+  color: #786b60;
+}
+
+.publication-info h1 {
+  color: #1d120e;
+  font-size: clamp(2.2rem, 4.5vw, 5rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.publication-info h1 span {
+  color: var(--accent-red);
+}
+
+.publication-slideshow-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: #786b60;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.publication-slideshow-controls button {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgba(29, 18, 14, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: #1d120e;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.publication-slideshow-controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.publication-original {
+  color: #4a3b32;
+  font-size: 0.7rem;
+  text-underline-offset: 0.25rem;
+}
+
+.publication-original span {
+  margin-left: 0.35rem;
+  color: var(--accent-red);
+}
+
+.publication-detail-cursor {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: white;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0.45rem, -0.8rem);
+  transition: opacity 120ms ease;
+  mix-blend-mode: difference;
+}
+
+.publication-detail-cursor.is-visible {
+  opacity: 1;
+}
+
+.publication-detail-cursor .cursor-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes publication-slide-in {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .gallery-heading {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -271,6 +433,44 @@ h1 span {
 }
 
 @media (max-width: 620px) {
+  .publication-showcase {
+    min-height: max(34rem, calc(100svh - var(--site-header-height, 14rem)));
+    grid-template-columns: minmax(0, 1.05fr) minmax(8.5rem, 0.95fr);
+  }
+
+  .publication-stage {
+    min-height: 34rem;
+  }
+
+  .publication-stage img {
+    max-height: none;
+  }
+
+  .publication-info {
+    padding: 1rem;
+  }
+
+  .publication-info h1 {
+    font-size: clamp(1.5rem, 6vw, 2.6rem);
+  }
+
+  .publication-info-bottom {
+    gap: 0.8rem;
+  }
+
+  .publication-slideshow-controls {
+    gap: 0.45rem;
+  }
+
+  .publication-slideshow-controls button {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .publication-detail-cursor {
+    display: none;
+  }
+
   .gallery-heading {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -332,7 +532,32 @@ h1 span {
   }
 }
 
+@media (hover: hover) {
+  .publication-stage {
+    cursor: none;
+  }
+}
+
+@media (hover: none) {
+  .publication-detail-cursor {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .publication-stage img {
+    animation: none;
+  }
+
+  .publication-detail-cursor {
+    display: none;
+    transition: none;
+  }
+
+  .publication-stage {
+    cursor: pointer;
+  }
+
   .photo-card img,
   .photo-index,
   .gallery-pagination a {

@@ -17,7 +17,6 @@
   align-content: center;
   gap: 1rem;
   padding: clamp(2.5rem, 6vw, 5rem) 8vw;
-  scroll-snap-align: start;
 }
 
 .back-link {
@@ -68,8 +67,6 @@ h1 span {
 
 .publication-card {
   overflow: hidden;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   text-decoration: none;
 }
 
@@ -119,7 +116,6 @@ h1 span {
   padding: clamp(2.5rem, 8vw, 7rem) 12vw;
   background: var(--publication-surface);
   color: var(--ink);
-  scroll-snap-align: start;
 }
 
 .publication-contact h2 {

@@ -99,12 +99,17 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
   private removeScrollListener?: () => void;
   private removePointerListener?: () => void;
   private removeResizeListener?: () => void;
+  private removeInteractionListeners: (() => void)[] = [];
+  private settleTimer?: number;
+  private settleFrame?: number;
+  private pointerDown = false;
   private resizeObserver?: ResizeObserver;
   private reducedMotionQuery?: MediaQueryList;
   private prefersReducedMotion = false;
   private headerHeight = 0;
   private readonly onMotionPreferenceChange = (event: MediaQueryListEvent): void => {
     this.prefersReducedMotion = event.matches;
+    this.cancelSettling();
     this.scheduleScrollUpdate();
   };
 
@@ -116,6 +121,7 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     const header = document.querySelector<HTMLElement>('.site-header');
     const updateHeaderHeight = (): void => {
+      this.cancelSettling();
       this.headerHeight = header?.getBoundingClientRect().height ?? 0;
       this.renderer.setStyle(
         document.documentElement,
@@ -140,10 +146,28 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
     this.zone.runOutsideAngular(() => {
       this.removeScrollListener = this.renderer.listen('window', 'scroll', () => {
         this.scheduleScrollUpdate();
+        this.scheduleSettling();
       });
       this.removeResizeListener = this.renderer.listen('window', 'resize', () => {
+        this.cancelSettling();
         this.scheduleScrollUpdate();
       });
+
+      this.removeInteractionListeners = [
+        this.renderer.listen('window', 'wheel', () => {
+          this.cancelSettling();
+          this.scheduleSettling();
+        }),
+        this.renderer.listen('window', 'keydown', () => this.cancelSettling()),
+        this.renderer.listen('window', 'pointerdown', () => {
+          this.pointerDown = true;
+          this.cancelSettling();
+        }),
+        ...['pointerup', 'pointercancel'].map((type) => this.renderer.listen('window', type, () => {
+          this.pointerDown = false;
+          this.scheduleSettling();
+        }))
+      ];
 
       this.removePointerListener = this.renderer.listen('document', 'pointermove', (event: PointerEvent) => {
         this.renderer.setStyle(this.cursor().nativeElement, 'left', `${event.clientX}px`);
@@ -160,9 +184,63 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
     this.removeScrollListener?.();
     this.removePointerListener?.();
     this.removeResizeListener?.();
+    this.removeInteractionListeners.forEach((remove) => remove());
+    this.cancelSettling();
     if (this.scrollFrame !== undefined) {
       window.cancelAnimationFrame(this.scrollFrame);
     }
+  }
+
+  private cancelSettling(): void {
+    window.clearTimeout(this.settleTimer);
+    if (this.settleFrame !== undefined) {
+      window.cancelAnimationFrame(this.settleFrame);
+      this.settleFrame = undefined;
+    }
+  }
+
+  private scheduleSettling(): void {
+    window.clearTimeout(this.settleTimer);
+    if (this.prefersReducedMotion || this.pointerDown || this.settleFrame !== undefined) {
+      return;
+    }
+    this.settleTimer = window.setTimeout(() => this.settleToPublication(), 450);
+  }
+
+  private settleToPublication(): void {
+    if (document.activeElement?.closest('input, textarea, select, [contenteditable="true"], .publication-card:focus-visible')) {
+      return;
+    }
+
+    const sections = Array.from(
+      this.scroller().nativeElement.querySelectorAll<HTMLElement>('.publications-heading, .publication-card, .publication-contact'),
+      (section) => section.getBoundingClientRect()
+    );
+    const start = window.scrollY;
+    const availableHeight = window.innerHeight - this.headerHeight;
+    const contact = sections[sections.length - 1];
+    if (contact.top <= this.headerHeight || sections.some((rect) => (
+      rect.height > availableHeight + 1 && rect.top < this.headerHeight - 1 && rect.bottom > window.innerHeight + 1
+    ))) {
+      return;
+    }
+
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const target = sections
+      .map((rect) => Math.max(0, Math.min(maxScroll, start + rect.top - this.headerHeight)))
+      .reduce((nearest, position) => Math.abs(position - start) < Math.abs(nearest - start) ? position : nearest);
+    if (Math.abs(target - start) < 1) {
+      return;
+    }
+
+    const startedAt = performance.now();
+    const animate = (now: number): void => {
+      const progress = Math.min(1, (now - startedAt) / 900);
+      const eased = progress < 0.5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
+      window.scrollTo({ top: start + (target - start) * eased, behavior: 'instant' });
+      this.settleFrame = progress < 1 ? window.requestAnimationFrame(animate) : undefined;
+    };
+    this.settleFrame = window.requestAnimationFrame(animate);
   }
 
   private scheduleScrollUpdate(): void {

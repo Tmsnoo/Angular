@@ -25,12 +25,7 @@ html {
 }
 
 html.publications-scroll-snap {
-  scroll-snap-type: y mandatory;
   scroll-padding-top: var(--site-header-height, 14rem);
-}
-
-html.publications-scroll-snap .site-footer {
-  scroll-snap-align: end;
 }
 
 body {
@@ -390,10 +385,6 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  html.publications-scroll-snap {
-    scroll-snap-type: y proximity;
   }
 
   *,

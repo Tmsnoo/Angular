@@ -21,8 +21,12 @@ Create a production build with `npm run build`.
 
 ## Publications
 
-`/publikacje` uses alternating white photo-and-description spreads, native scroll
-snapping, slower-moving photographs and scroll-linked title blur. Opening a
+`/publikacje` uses alternating white photo-and-description spreads, slower-moving
+photographs and scroll-linked title blur. After a 450 ms pause, scrolling gently
+settles to the nearest spread over 900 ms rather than forcing native scroll snap.
+Wheel, pointer and keyboard input interrupt this settling immediately. It is
+disabled with reduced motion, while editing form fields, inside taller-than-screen
+spreads and after reaching the contact section. Opening a
 publication preserves its photo/description orientation and provides manual photo
 navigation. Reduced-motion preferences disable the parallax and title effects.
 

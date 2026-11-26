@@ -31,7 +31,6 @@ import { publicationPlaceholderDescription, publicationProjects } from './public
           <a
             class="publication-card publication-sheet"
             [class.publication-sheet--reversed]="index % 2 === 1"
-            [class.is-active]="visibleIndex() === index"
             [routerLink]="['/publikacje', project.slug]"
             [attr.aria-label]="'Otwórz publikację: ' + project.name"
             (pointerenter)="cursorVisible.set(true)"
@@ -92,7 +91,6 @@ import { publicationPlaceholderDescription, publicationProjects } from './public
 export class PublicationsComponent implements AfterViewInit, OnDestroy {
   readonly projects = publicationProjects;
   readonly placeholderDescription = publicationPlaceholderDescription;
-  readonly visibleIndex = signal(0);
   readonly cursorVisible = signal(false);
 
   private readonly scroller = viewChild.required<ElementRef<HTMLElement>>('scroller');
@@ -100,17 +98,14 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
   private scrollFrame?: number;
   private removeScrollListener?: () => void;
   private removePointerListener?: () => void;
+  private removeResizeListener?: () => void;
   private resizeObserver?: ResizeObserver;
   private reducedMotionQuery?: MediaQueryList;
   private prefersReducedMotion = false;
   private headerHeight = 0;
   private readonly onMotionPreferenceChange = (event: MediaQueryListEvent): void => {
     this.prefersReducedMotion = event.matches;
-    if (this.prefersReducedMotion) {
-      this.resetImageParallax();
-    } else {
-      this.scheduleScrollUpdate();
-    }
+    this.scheduleScrollUpdate();
   };
 
   constructor(
@@ -146,6 +141,9 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
       this.removeScrollListener = this.renderer.listen('window', 'scroll', () => {
         this.scheduleScrollUpdate();
       });
+      this.removeResizeListener = this.renderer.listen('window', 'resize', () => {
+        this.scheduleScrollUpdate();
+      });
 
       this.removePointerListener = this.renderer.listen('document', 'pointermove', (event: PointerEvent) => {
         this.renderer.setStyle(this.cursor().nativeElement, 'left', `${event.clientX}px`);
@@ -161,26 +159,10 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
     this.reducedMotionQuery?.removeEventListener('change', this.onMotionPreferenceChange);
     this.removeScrollListener?.();
     this.removePointerListener?.();
+    this.removeResizeListener?.();
     if (this.scrollFrame !== undefined) {
       window.cancelAnimationFrame(this.scrollFrame);
     }
-  }
-
-  private findMostVisibleSlideIndex(): number {
-    const cards = this.scroller().nativeElement.querySelectorAll<HTMLElement>('.publication-card');
-    let activeIndex = 0;
-    let mostVisibleHeight = 0;
-
-    cards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-      if (visibleHeight > mostVisibleHeight) {
-        mostVisibleHeight = visibleHeight;
-        activeIndex = index;
-      }
-    });
-
-    return activeIndex;
   }
 
   private scheduleScrollUpdate(): void {
@@ -191,31 +173,22 @@ export class PublicationsComponent implements AfterViewInit, OnDestroy {
     this.scrollFrame = window.requestAnimationFrame(() => {
       this.scrollFrame = undefined;
       this.updateImageParallax();
-
-      const nextIndex = this.findMostVisibleSlideIndex();
-      if (nextIndex !== this.visibleIndex()) {
-        this.zone.run(() => this.visibleIndex.set(nextIndex));
-      }
     });
   }
 
   private updateImageParallax(): void {
     const cards = this.scroller().nativeElement.querySelectorAll<HTMLElement>('.publication-card');
-    cards.forEach((card) => {
+    const positions = Array.from(cards, (card) => {
       const rect = card.getBoundingClientRect();
       const progress = this.prefersReducedMotion
         ? 0
-        : Math.min(1, Math.max(0, (this.headerHeight - rect.top) / rect.height));
-      const offset = this.prefersReducedMotion ? 0 : (progress - 0.5) * rect.height * 0.24;
-
-      this.renderer.setStyle(card, '--parallax-y', `${offset}px`, RendererStyleFlags2.DashCase);
+        : Math.min(1, Math.max(-1, (this.headerHeight - rect.top) / rect.height));
+      return { card, progress, height: rect.height };
     });
-  }
-
-  private resetImageParallax(): void {
-    const cards = this.scroller().nativeElement.querySelectorAll<HTMLElement>('.publication-card');
-    cards.forEach((card) => {
-      this.renderer.setStyle(card, '--parallax-y', '0px', RendererStyleFlags2.DashCase);
+    positions.forEach(({ card, progress, height }) => {
+      this.renderer.setStyle(card, '--parallax-y', `${progress * height * 0.4}px`, RendererStyleFlags2.DashCase);
+      this.renderer.setStyle(card, '--title-blur', `${Math.abs(progress) * 12}px`, RendererStyleFlags2.DashCase);
+      this.renderer.setStyle(card, '--title-y', `${progress * 24}px`, RendererStyleFlags2.DashCase);
     });
   }
 

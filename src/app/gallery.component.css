@@ -16,7 +16,6 @@
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 28rem;
   place-items: center;
   overflow: hidden;
   border: 0;
@@ -26,11 +25,12 @@
 }
 
 .publication-stage img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  max-height: calc(100svh - var(--site-header-height, 14rem));
-  object-fit: contain;
+  object-fit: cover;
   animation: publication-slide-in 480ms ease both;
 }
 
@@ -401,14 +401,6 @@ h1 span {
 }
 
 @media (max-width: 620px) {
-  .publication-stage {
-    min-height: 34rem;
-  }
-
-  .publication-stage img {
-    max-height: none;
-  }
-
   .publication-slideshow-controls {
     gap: 0.45rem;
   }

@@ -29,6 +29,10 @@ html.publications-scroll-snap {
   scroll-padding-top: var(--site-header-height, 14rem);
 }
 
+html.publications-scroll-snap .site-footer {
+  scroll-snap-align: end;
+}
+
 body {
   min-width: 320px;
   margin: 0;
@@ -51,15 +55,21 @@ body:has(.publications-page, .publication-gallery-page) .site-footer {
   border-color: #ddd;
 }
 
+body:has(.publications-page, .publication-gallery-page) .site-footer {
+  --paper-muted: var(--publication-muted);
+  --accent: var(--publication-ink);
+}
+
 body:has(.publications-page, .publication-gallery-page) :is(
   .wordmark, .footer-brand, .source-link, .site-footer nav a, .footer-year
 ) {
   color: var(--publication-ink);
 }
 
-body:has(.publications-page, .publication-gallery-page) :is(
-  .wordmark-name span, .footer-brand span, .wordmark-mark, .source-link span
-) {
+body:has(.publications-page, .publication-gallery-page) .site-header :is(
+  .wordmark-name span, .wordmark-mark, .source-link span
+),
+body:has(.publications-page, .publication-gallery-page) .site-footer .footer-brand span {
   color: var(--publication-muted);
 }
 

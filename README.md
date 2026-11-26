@@ -18,3 +18,15 @@ npm start
 ```
 
 Create a production build with `npm run build`.
+
+## Publications
+
+`/publikacje` uses alternating white photo-and-description spreads, native scroll
+snapping, slower-moving photographs and scroll-linked title blur. Opening a
+publication preserves its photo/description orientation and provides manual photo
+navigation. Reduced-motion preferences disable the parallax and title effects.
+
+Edit publication text in `src/app/publication-projects.ts` using each project's
+optional `description`. Projects without one display a 500-character Lorem ipsum
+placeholder. The contact form at the end prepares a `mailto:` message in the
+visitor's email application; it does not send email through a server.

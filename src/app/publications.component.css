@@ -83,11 +83,11 @@ h1 span {
 
 .publication-image img {
   position: absolute;
-  top: -15%;
+  top: -42%;
   left: 0;
   display: block;
   width: 100%;
-  height: 130%;
+  height: 184%;
   object-fit: cover;
   filter: saturate(0.82);
   transform: translate3d(0, var(--parallax-y, 0px), 0);
@@ -98,6 +98,16 @@ h1 span {
 .publication-card:focus-visible .publication-image img {
   filter: saturate(1);
   scale: 1.025;
+}
+
+.publication-caption {
+  filter: blur(var(--title-blur, 0px));
+  transform: translate3d(0, var(--title-y, 0px), 0);
+}
+
+.publication-card:focus-visible .publication-caption {
+  filter: none;
+  transform: none;
 }
 
 .publication-contact {
@@ -294,4 +304,8 @@ h1 span {
     cursor: pointer;
   }
 
+  .publication-caption {
+    filter: none;
+    transform: none;
+  }
 }

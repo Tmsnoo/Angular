@@ -81,6 +81,10 @@
     padding: 1rem 0.75rem;
   }
 
+  .publication-visual img {
+    object-fit: contain;
+  }
+
   .publication-caption {
     flex-wrap: wrap;
     gap: 0.75rem;

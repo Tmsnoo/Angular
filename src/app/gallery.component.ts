@@ -5,6 +5,7 @@ import {
   NgZone,
   OnDestroy,
   Renderer2,
+  RendererStyleFlags2,
   computed,
   effect,
   inject,
@@ -192,6 +193,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   private readonly lightbox = viewChild<ElementRef<HTMLDialogElement>>('lightbox');
   private readonly publicationCursor = viewChild<ElementRef<HTMLElement>>('publicationCursor');
   private removePointerListener?: () => void;
+  private resizeObserver?: ResizeObserver;
   private readonly categorySlug = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('category'))),
     { initialValue: this.route.snapshot.paramMap.get('category') }
@@ -248,11 +250,31 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    if (this.isPublication()) {
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const updateHeaderHeight = (): void => {
+        this.renderer.setStyle(
+          document.documentElement,
+          '--site-header-height',
+          `${header?.getBoundingClientRect().height ?? 0}px`,
+          RendererStyleFlags2.DashCase
+        );
+      };
+      updateHeaderHeight();
+      if (header) {
+        this.resizeObserver = new ResizeObserver(updateHeaderHeight);
+        this.resizeObserver.observe(header);
+      }
+    }
     window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
   }
 
   ngOnDestroy(): void {
     this.removePointerListener?.();
+    this.resizeObserver?.disconnect();
+    if (this.isPublication()) {
+      this.renderer.removeStyle(document.documentElement, '--site-header-height', RendererStyleFlags2.DashCase);
+    }
   }
 
   movePublicationImage(direction: -1 | 1): void {

@@ -10,7 +10,7 @@ import {
   viewChild
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { publicationProjects } from './publication-projects';
+import { publicationPlaceholderDescription, publicationProjects } from './publication-projects';
 
 @Component({
   standalone: true,
@@ -29,14 +29,14 @@ import { publicationProjects } from './publication-projects';
       <nav class="publication-grid" aria-label="Projekty i publikacje">
         @for (project of projects; track project.slug; let index = $index) {
           <a
-            class="publication-card"
-            [class.publication-card--reversed]="index % 2 === 1"
+            class="publication-card publication-sheet"
+            [class.publication-sheet--reversed]="index % 2 === 1"
             [class.is-active]="visibleIndex() === index"
             [routerLink]="['/publikacje', project.slug]"
             [attr.aria-label]="'Otwórz publikację: ' + project.name"
             (pointerenter)="cursorVisible.set(true)"
             (pointerleave)="cursorVisible.set(false)">
-            <span class="publication-image">
+            <span class="publication-image publication-visual">
               <img
                 [src]="project.images[0]"
                 [alt]="project.name"
@@ -44,12 +44,13 @@ import { publicationProjects } from './publication-projects';
                 [attr.loading]="index < 2 ? 'eager' : 'lazy'"
                 decoding="async">
             </span>
-            <span class="publication-copy">
-              <span class="publication-number">
-                {{ project.number }} <span>/ {{ projects.length.toString().padStart(2, '0') }}</span>
+            <span class="publication-panel">
+              <span class="publication-panel-top">Otwórz publikację ↗</span>
+              <span class="publication-description">{{ project.description ?? placeholderDescription }}</span>
+              <span class="publication-caption">
+                <span class="publication-name">{{ project.name }}</span>
+                <span class="publication-number">{{ project.number }}</span>
               </span>
-              <span class="publication-title">{{ project.name }}</span>
-              <span class="publication-open">OTWÓRZ <span aria-hidden="true">↗</span></span>
             </span>
           </a>
         }
@@ -86,10 +87,11 @@ import { publicationProjects } from './publication-projects';
       <span>OTWÓRZ</span>
     </div>
   `,
-  styleUrl: './publications.component.css'
+  styleUrls: ['./publications.component.css', './publication-layout.css']
 })
 export class PublicationsComponent implements AfterViewInit, OnDestroy {
   readonly projects = publicationProjects;
+  readonly placeholderDescription = publicationPlaceholderDescription;
   readonly visibleIndex = signal(0);
   readonly cursorVisible = signal(false);
 

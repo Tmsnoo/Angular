@@ -1,9 +1,14 @@
 :host {
   display: block;
+  --paper: var(--publication-ink);
+  --paper-muted: var(--publication-muted);
+  --accent: var(--publication-ink);
 }
 
 .publications-page {
   min-height: 80vh;
+  background: var(--publication-surface);
+  color: var(--publication-ink);
 }
 
 .publications-heading {
@@ -62,46 +67,18 @@ h1 span {
 }
 
 .publication-card {
-  display: grid;
-  min-height: calc(100svh - var(--site-header-height, 14rem));
-  grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
   overflow: hidden;
-  background: #fff;
-  color: #1d120e;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   text-decoration: none;
 }
 
-.publication-card--reversed {
-  grid-template-columns: minmax(15rem, 0.75fr) minmax(0, 1.25fr);
-}
-
-.publication-card--reversed .publication-image {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.publication-card--reversed .publication-copy {
-  grid-column: 1;
-  grid-row: 1;
-}
-
 .publication-image {
-  position: relative;
   position: relative;
   display: block;
   min-width: 0;
   overflow: hidden;
-  background: var(--soil);
-}
-
-.publication-image::after {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(243, 229, 194, 0.15);
-  content: "";
-  pointer-events: none;
+  background: var(--publication-surface);
 }
 
 .publication-image img {
@@ -123,66 +100,6 @@ h1 span {
   scale: 1.025;
 }
 
-.publication-copy {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: 1.25rem;
-  padding: clamp(1.5rem, 5vw, 5rem);
-  opacity: 0.65;
-  filter: blur(0.35rem);
-  transition: opacity 350ms ease, filter 350ms ease;
-}
-
-.publication-card.is-active .publication-copy {
-  opacity: 1;
-  filter: blur(0);
-}
-
-.publication-number {
-  color: #786b60;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-}
-
-.publication-number span {
-  color: #a69b90;
-}
-
-.publication-title {
-  max-width: 14ch;
-  font-family: var(--display);
-  font-size: clamp(2rem, 5.5vw, 5.8rem);
-  font-weight: 800;
-  letter-spacing: -0.065em;
-  line-height: 0.95;
-  overflow-wrap: anywhere;
-}
-
-.publication-open {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding-top: 0.35rem;
-  border-top: 1px solid rgba(29, 18, 14, 0.3);
-  color: #4a3b32;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-}
-
-.publication-open span {
-  color: var(--accent-red);
-  font-size: 1.15rem;
-  transition: transform 200ms ease;
-}
-
-.publication-card:hover .publication-open span,
-.publication-card:focus-visible .publication-open span {
-  transform: translate(0.2rem, -0.2rem);
-}
-
 .publication-contact {
   display: grid;
   min-height: calc(100svh - var(--site-header-height, 14rem));
@@ -190,7 +107,7 @@ h1 span {
   align-items: center;
   gap: clamp(2rem, 8vw, 8rem);
   padding: clamp(2.5rem, 8vw, 7rem) 12vw;
-  background: var(--paper);
+  background: var(--publication-surface);
   color: var(--ink);
   scroll-snap-align: start;
 }
@@ -203,6 +120,13 @@ h1 span {
   font-weight: 800;
   letter-spacing: -0.06em;
   line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.publication-contact > div,
+.publication-contact-form,
+.publication-contact-form label {
+  min-width: 0;
 }
 
 .publication-contact h2 em {
@@ -320,29 +244,6 @@ h1 span {
     padding: 2rem 1.5rem;
   }
 
-  .publication-card,
-  .publication-card--reversed {
-    min-height: max(34rem, calc(100svh - var(--site-header-height, 14rem)));
-    grid-template-columns: minmax(0, 1.05fr) minmax(8.5rem, 0.95fr);
-  }
-
-  .publication-card--reversed .publication-image {
-    grid-column: 2;
-  }
-
-  .publication-card--reversed .publication-copy {
-    grid-column: 1;
-  }
-
-  .publication-copy {
-    gap: 0.85rem;
-    padding: 1rem;
-  }
-
-  .publication-title {
-    font-size: clamp(1.35rem, 6vw, 2.5rem);
-  }
-
   .publication-contact {
     min-height: max(36rem, calc(100svh - var(--site-header-height, 14rem)));
     grid-template-columns: 1fr;
@@ -374,7 +275,6 @@ h1 span {
 
 @media (prefers-reduced-motion: reduce) {
   .publication-image img,
-  .publication-open span,
   .publication-cursor {
     transition: none;
   }
@@ -394,9 +294,4 @@ h1 span {
     cursor: pointer;
   }
 
-  .publication-copy {
-    filter: none;
-    opacity: 1;
-    transition: none;
-  }
 }

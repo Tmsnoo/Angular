@@ -10,6 +10,9 @@
   --line: rgba(243, 229, 194, 0.16);
   --display: "Manrope", "DM Sans", sans-serif;
   --body: "DM Sans", sans-serif;
+  --publication-surface: #fff;
+  --publication-ink: #171717;
+  --publication-muted: #555;
 }
 
 * {
@@ -34,6 +37,41 @@ body {
   font-family: var(--body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+body:has(.publications-page, .publication-gallery-page) {
+  background: var(--publication-surface);
+  color: var(--publication-ink);
+  color-scheme: light;
+}
+
+body:has(.publications-page, .publication-gallery-page) .site-header,
+body:has(.publications-page, .publication-gallery-page) .site-footer {
+  background: var(--publication-surface);
+  border-color: #ddd;
+}
+
+body:has(.publications-page, .publication-gallery-page) :is(
+  .wordmark, .footer-brand, .source-link, .site-footer nav a, .footer-year
+) {
+  color: var(--publication-ink);
+}
+
+body:has(.publications-page, .publication-gallery-page) :is(
+  .wordmark-name span, .footer-brand span, .wordmark-mark, .source-link span
+) {
+  color: var(--publication-muted);
+}
+
+body:has(.publications-page, .publication-gallery-page) .tab-scroll-button {
+  background: var(--publication-surface);
+  border-color: #aaa;
+  color: var(--publication-ink);
+}
+
+body:has(.publications-page, .publication-gallery-page) :is(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--publication-ink);
+  outline-offset: 4px;
 }
 
 button,

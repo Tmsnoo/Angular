@@ -16,7 +16,7 @@ import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { portfolioCategories } from './portfolio-categories';
-import { publicationProjects } from './publication-projects';
+import { publicationPlaceholderDescription, publicationProjects } from './publication-projects';
 import { weddingStories } from './wedding-stories';
 
 @Component({
@@ -25,10 +25,10 @@ import { weddingStories } from './wedding-stories';
   template: `
     @if (category(); as currentCategory) {
       <section class="gallery-page" [class.publication-gallery-page]="isPublication()">
-        @if (isPublication()) {
-          <div class="publication-showcase">
+        @if (publication(); as project) {
+          <div class="publication-showcase publication-sheet" [class.publication-sheet--reversed]="isReversedPublication()">
             <button
-              class="publication-stage"
+              class="publication-stage publication-visual"
               type="button"
               [attr.aria-label]="'Zamknij katalog ' + currentCategory.name + ' i wróć do publikacji'"
               (click)="returnToPublications()"
@@ -44,14 +44,15 @@ import { weddingStories } from './wedding-stories';
               <span class="visually-hidden">Kliknij zdjęcie, aby zamknąć katalog i wrócić do listy publikacji.</span>
             </button>
 
-            <aside class="publication-info">
-              <a class="publication-back" routerLink="/publikacje">
-                <span aria-hidden="true">←</span> Publikacje
-              </a>
-              <div class="publication-info-bottom">
-                <p class="eyebrow">{{ currentCategory.number }} / KATALOG</p>
-                <h1>{{ currentCategory.name }}<span>.</span></h1>
-                <div class="publication-slideshow-controls" aria-label="Nawigacja po zdjęciach">
+            <aside class="publication-panel">
+              <div class="publication-panel-top">
+                <a class="publication-back" routerLink="/publikacje">
+                  <span aria-hidden="true">←</span> Publikacje
+                </a>
+              </div>
+              <div class="publication-description">
+                <p>{{ project.description ?? placeholderDescription }}</p>
+                <div class="publication-slideshow-controls" role="group" aria-label="Nawigacja po zdjęciach">
                   <button
                     type="button"
                     aria-label="Poprzednie zdjęcie"
@@ -66,9 +67,13 @@ import { weddingStories } from './wedding-stories';
                     [disabled]="publicationImageIndex() === currentCategory.images.length - 1"
                     (click)="movePublicationImage(1)">→</button>
                 </div>
-                <a class="publication-original" [href]="currentCategory.sourceUrl" target="_blank" rel="noopener noreferrer">
+                <a class="publication-original" [href]="project.sourceUrl" target="_blank" rel="noopener noreferrer">
                   Zobacz oryginalną publikację <span aria-hidden="true">↗</span>
                 </a>
+              </div>
+              <div class="publication-caption">
+                <h1 class="publication-name">{{ project.name }}</h1>
+                <span class="publication-number">{{ project.number }}</span>
               </div>
             </aside>
           </div>
@@ -175,7 +180,7 @@ import { weddingStories } from './wedding-stories';
       </div>
     }
   `,
-  styleUrl: './gallery.component.css'
+  styleUrls: ['./gallery.component.css', './publication-layout.css']
 })
 export class GalleryComponent implements AfterViewInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
@@ -194,6 +199,11 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
 
   readonly categories = portfolioCategories;
   readonly weddings = weddingStories;
+  readonly placeholderDescription = publicationPlaceholderDescription;
+  readonly publication = computed(() => publicationProjects.find(({ slug }) => slug === this.categorySlug()));
+  readonly isReversedPublication = computed(() => (
+    publicationProjects.findIndex(({ slug }) => slug === this.categorySlug()) % 2 === 1
+  ));
   readonly category = computed(() => (
     portfolioCategories.find(({ slug }) => slug === this.categorySlug())
     ?? weddingStories.find(({ slug }) => slug === this.categorySlug())

@@ -1,0 +1,99 @@
+.publication-sheet {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: max(40rem, calc(100svh - var(--site-header-height, 14rem)));
+  background: var(--publication-surface);
+  color: var(--publication-ink);
+}
+
+.publication-sheet--reversed .publication-visual {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.publication-sheet--reversed .publication-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.publication-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  gap: 1.5rem;
+  padding: clamp(1.25rem, 2.5vw, 3rem);
+  background: var(--publication-surface);
+}
+
+.publication-panel-top {
+  min-height: 1.5rem;
+  color: var(--publication-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.publication-description {
+  align-self: center;
+  justify-self: center;
+  max-width: 36ch;
+  margin: 0;
+  color: var(--publication-muted);
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  line-height: 1.85;
+}
+
+.publication-caption {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.publication-name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3.2vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.publication-number {
+  flex-shrink: 0;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3.2vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  .publication-sheet {
+    min-height: max(44rem, calc(100svh - var(--site-header-height, 14rem)));
+  }
+
+  .publication-panel {
+    gap: 1rem;
+    padding: 1rem 0.75rem;
+  }
+
+  .publication-caption {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .publication-name,
+  .publication-number {
+    font-size: clamp(1.1rem, 4vw, 1.75rem);
+  }
+
+  .publication-description {
+    font-size: 0.75rem;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+}
